@@ -6,8 +6,21 @@ const express = require ('express');
 const app = express();
 
 // define the routes
-app.get("/" , (request, response) => {
-    response.send("Hello World!");
+app.get("/todos" , (request, response) => {
+    response.send("GET all todos");
+});
+
+app.post("/todos" , (request, response) => {
+    response.send("POST a todo");
+});
+
+app.put("/todos" , (request, response) => {
+    response.send("PUT a todo");
+});
+
+
+app.delete("/todos" , (request, response) => {
+    response.send("DELETE a todo");
 });
 
 // start the server to listen for requests

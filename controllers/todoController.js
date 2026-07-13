@@ -31,19 +31,19 @@ const todos = [
 
 const todoController = {
     getAllTodos: (request, response) => {
-    response.status(200).json(todos);
-    },
+    response.status(200).json({message: "Get all todos", todos});
+    },  
 
     createTodo: (request, response) => {
-    response.json({message:"POST a todo"});
+    response.status(200).json({message:"Create a todo"});
     },
    
     updateTodo: (request, response) => {
-    response.json({message:"PUT a todo"});
+    response.status(200).json({message:"Update a todo"});
     },
 
     deleteTodo: (request, response) => {
-    response.json({message:"DELETE a todo"});
+    response.status(200). json({message:"DELETE a todo"});
     }
  }
 

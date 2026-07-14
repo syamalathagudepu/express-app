@@ -1,13 +1,31 @@
 // import express
-
-const express = require ('express');
+const express = require('express');
 const todoRouter = require('./routes/todoRouter');
+const bodyParser = require('body-parser');
+const morgan = require('morgan');
+const logger = require("./utlis/logger");
+const errorRouter = require('./utlis/errorRoute');
+const authRouter = require('./routes/authRouter');
+const cookieParser = require('cookie-parser');
 
 // create express app
 const app = express();
 
+// use a middleware to parse the request body
+// app.use(express.json());
+app.use(bodyParser.json());
 
-app
-.use("/todos" , todoRouter);
+// parse the cookies
+app.use(cookieParser());
+
+// middleware to log all the incoming requests
+// app.use(morgan("dev"));
+app.use(logger);
+
+app.use("/auth", authRouter);
+app.use("/todos", todoRouter);
+
+// middleware to send response handling error routes
+app.use(errorRouter);
 
 module.exports = app;

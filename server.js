@@ -2,25 +2,22 @@ const dns = require('dns');
 dns.setServers(['8.8.8.8', '8.8.4.4']); // Fix for ISP DNS blocking MongoDB SRV lookups
 
 const app = require("./app");
-const mongoose = require("mongoose");
-const dotenv = require("dotenv");
+const mongoose = require('mongoose');
+const { MONGODB_URI, PORT, HOST } = require("./utlis/config");
 
-dotenv.config();
-
-// connect to the database
-mongoose
-    .connect(process.env.MONGODB_URI)
+// connect to the mongodb database
+mongoose    
+    .connect(MONGODB_URI)
     .then(() => {
-        console.log("connected to the database");
-        
+        console.log('Connected to MongoDB database...');
+
+        // start the server to listen for requests
         app
-            .listen(3001, "localhost", () => {
-             console.log("server is running on http://localhost:3001");
-        });
+            .listen(PORT, HOST, () => {
+                console.log(`Server is running at http://${HOST}:${PORT}...`);
+            });
     })
-
     .catch((error) => {
-        console.error("error connecting to the database:", error);
-    });
-
-// start the server to listen for requests
+        console.log('Error in connecting to the database');
+        console.log(`Error:`, error.message);
+    })

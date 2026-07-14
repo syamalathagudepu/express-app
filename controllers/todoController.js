@@ -30,20 +30,38 @@ const todos = [
 ];
 
 const todoController = {
-    getAllTodos: (request, response) => {
-    response.status(200).json({message: "Get all todos", todos});
-    },  
+    getAllTodos: async (request, response) => {
+    try {response.status(200).json({message: "Get all todos"});
+    } catch (error) {
+        response.status(500).json({message: "Error occurred while fetching todos", error:e.message});
+    }     
+},  
 
-    createTodo: (request, response) => {
-    response.status(200).json({message:"Create a todo"});
+    createTodo: async (request, response) => {
+    try {
+
+        console.log(request.body);
+        
+        response.status(200).json({message:"Create a todo"});
+    } catch (error) {
+        response.status(500).json({message: "Error occurred while creating todo", error});
+    }
     },
    
-    updateTodo: (request, response) => {
-    response.status(200).json({message:"Update a todo"});
+    updateTodo: async (request, response) => {
+    try {
+        response.status(200).json({message:"Update a todo"});
+    } catch (error) {
+        response.status(500).json({message: "Error occurred while updating todo", error});
+    }
     },
 
-    deleteTodo: (request, response) => {
-    response.status(200). json({message:"DELETE a todo"});
+    deleteTodo: async (request, response) => {
+    try {
+        response.status(200).json({message:"DELETE a todo"});
+    } catch (error) {
+        response.status(500).json({message: "Error occurred while deleting todo", error});
+    }
     }
  }
 
